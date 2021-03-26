@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import CategoryList from './CategoryList';
 import { Container, Row, Col } from 'reactstrap';
 import alertify from "alertifyjs";
+import {Route, Switch} from 'react-router-dom';
+import NotFound from "./NotFound";
+import CartList from "./CartList";
 
 export default class App extends Component {
   state = {
@@ -30,7 +33,7 @@ export default class App extends Component {
     .then(response => response.json())
     .then(data => this.setState({products:data}));;
   }; 
-  
+
   addtoCart = (product) =>{
     let newCart= this.state.cart;
     var addedItem = newCart.find(c=>c.product.id === product.id);
@@ -47,6 +50,7 @@ export default class App extends Component {
   removeFromCart=(product)=>{
     let newCart=this.state.cart.filter(c=>c.product.id!==product.id)
     this.setState({cart:newCart})
+    alertify.error(product.productName + "remove from cart!");
   }
 
   render() {
@@ -64,11 +68,29 @@ export default class App extends Component {
                 info={categoryInfo} /> {/*Bu kisim bize CategoryLisst yazdirir sol tablonun ustunde.*/}
             </Col>
             <Col xs="9">
-              <ProductList 
-                addtoCart={this.addtoCart}
-                products={this.state.products}   /*Burasi web sitenin Product kismi*/
-                currentCategory={this.state.currentCategory}   /*Burasi web sitenin Category kismi*/
-                info={productInfo} />
+              <Switch>
+                <Route 
+                  exact 
+                  path="/"
+                  render={props=> (
+                    <ProductList 
+                    {...props}
+                    addtoCart={this.addtoCart}
+                    products={this.state.products}   /*Burasi web sitenin Product kismi*/
+                    currentCategory={this.state.currentCategory}   /*Burasi web sitenin Category kismi*/
+                    info={productInfo} />
+                  )}
+                  />
+                <Route exact path="/cart" render={props=> (
+                    <CartList 
+                    {...props}
+                    cart={this.state.cart}   /*Burasi web sitenin Product kismi*/
+                    removeFromCart={this.removeFromCart}
+                    />
+                  )} />
+                <Route component={NotFound} />
+              </Switch>
+              
             </Col>
           </Row>
         </Container>

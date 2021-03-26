@@ -12,7 +12,7 @@ export default class CartList extends Component {
                         <th>Product Name</th>
                         <th>Unit Price</th>
                         <th>Units In Stock</th>
-                        <th>Quantity</th>
+                        <th>Quantityyy</th>
                         <th></th>
                     </tr>
                 </thead>

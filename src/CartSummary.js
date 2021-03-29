@@ -8,10 +8,10 @@ import {
     Badge,
     NavLink,
     NavItem
-  } from 'reactstrap';
+} from 'reactstrap';
 
 export default class CartSummary extends Component {
-    
+
     renderSummary(){
         return(
         <UncontrolledDropdown nav inNavbar>
@@ -21,7 +21,7 @@ export default class CartSummary extends Component {
             <DropdownMenu right>
                 {this.props.cart.map(cartItem=>(
                     <DropdownItem key={cartItem.product.id}>
-                        <Badge color="danger" onClick={()=>this.props.removeFromCart(cartItem.product)}>x</Badge>
+                        <Badge color="danger" onClick={()=>this.props.removeFromCart(cartItem.product)}>X</Badge>
                         {cartItem.product.productName}
                         <Badge color="success">{cartItem.quantity}</Badge>
                     </DropdownItem>
@@ -37,7 +37,7 @@ export default class CartSummary extends Component {
         </UncontrolledDropdown>
         );
     }
-    
+
     renderEmptyCart(){
         return(
             <NavItem>
@@ -49,9 +49,10 @@ export default class CartSummary extends Component {
     render() {
     /* Bu asagisi bize sitemizde eger urun sayisi 0'sa cart'i gosterme, eger urun sayimiz 0'dan buyukse
     cart'i gostericek. Mesela asagidaki div'in icine doldur bisey yaz gorursun*/
-        return (<div>{this.props.cart.length>0?this.renderSummary():this.renderEmptyCart()} </div>);
+        return (
+            <div>
+                {this.props.cart.length>0?this.renderSummary():this.renderEmptyCart()} 
+            </div>
+        );
     }
 }
-
-
-                    

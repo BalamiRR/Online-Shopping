@@ -21,7 +21,8 @@ export default class CategoryList extends Component {
             <div>
                 <h3>{this.props.info.title}</h3>
                 <ListGroup>
-                    {/** Her bir kkategory icin uret diyoruz ve bizim iki tane category imiz var onlarin ciktisini alicaz */
+                    {/** Her bir kkategory icin uret diyoruz ve bizim iki tane category imiz var onlarin ciktisini alicaz 
+                     bu active yazan kisim ise bize tikladigimizda buttonun ustunde mavi isik cikmasini saglar*/
                     this.state.categories.map(category => (
                         <ListGroupItem active={category.categoryName===this.props.currentCategory?true:false}
                             onClick={()=>this.props.changeCategory(category)} 
@@ -36,6 +37,3 @@ export default class CategoryList extends Component {
         )
     }
 }
-
-
-

@@ -7,6 +7,8 @@ import alertify from "alertifyjs";
 import {Route, Switch} from 'react-router-dom';
 import NotFound from "./NotFound";
 import CartList from "./CartList";
+import FormDemo1 from "./FormDemo1";
+import FormDemo2 from "./FormDemo2";
 
 export default class App extends Component {
   state = {
@@ -20,7 +22,7 @@ export default class App extends Component {
   }
 
   changeCategory = (category) => {
-    this.setState({currentCategory: category.categoryName});
+    this.setState({currentCategory: category});
     this.getProducts(category.id);
   };
 
@@ -35,6 +37,7 @@ export default class App extends Component {
   }; 
 
   addtoCart = (product) =>{
+    /*Burada cart'a ekleme yapiyoruz..*/
     let newCart= this.state.cart;
     var addedItem = newCart.find(c=>c.product.id === product.id);
     if(addedItem){
@@ -46,7 +49,7 @@ export default class App extends Component {
     alertify.success(product.productName + "added to cart!",1);
     /*Bu yukaridaki kodda 1 yazmasi demek cart'a eklennleri 1 saniye olarak goster diye..*/
   }
-
+  
   removeFromCart=(product)=>{
     let newCart=this.state.cart.filter(c=>c.product.id!==product.id)
     this.setState({cart:newCart})
@@ -55,7 +58,7 @@ export default class App extends Component {
 
   render() {
     let productInfo = { title: "ProducList"};
-    let categoryInfo = { title: "CategoryLisst" };
+    let categoryInfo = { title: "CategoryList" };
     return (
       <div>
         <Container>
@@ -81,16 +84,20 @@ export default class App extends Component {
                     info={productInfo} />
                   )}
                   />
-                <Route exact path="/cart" render={props=> (
+                <Route 
+                  exact 
+                  path="/cart" 
+                  render={props=> (
                     <CartList 
                     {...props}
                     cart={this.state.cart}   /*Burasi web sitenin Product kismi*/
                     removeFromCart={this.removeFromCart}
                     />
                   )} />
-                <Route component={NotFound} />
+                  <Route path="/form1" component={FormDemo1}/>
+                  <Route path="/form2" component={FormDemo2}/>
+                <Route component={NotFound}/>
               </Switch>
-              
             </Col>
           </Row>
         </Container>

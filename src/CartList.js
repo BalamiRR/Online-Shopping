@@ -12,13 +12,13 @@ export default class CartList extends Component {
                         <th>Product Name</th>
                         <th>Unit Price</th>
                         <th>Units In Stock</th>
-                        <th>Quantityyy</th>
+                        <th>Quantity</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                    this.props.cart.map(cartItem=>(
+                    this.props.cart.map(cartItem => (
                         <tr key={cartItem.product.id}>
                             <td>{cartItem.product.id}</td>
                             <td>{cartItem.product.categoryId}</td>
